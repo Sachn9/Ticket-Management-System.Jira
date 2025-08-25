@@ -1,0 +1,46 @@
+package com.tms.Auth_API.security;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.util.Collections;
+
+public class AuthFilter extends OncePerRequestFilter{
+
+    @Autowired
+    AuthUtility authUtility;
+
+
+    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String bearerToken = request.getHeader("Authorization");
+        if(bearerToken != null && bearerToken.startsWith("Bearer ")){
+            String token = bearerToken.substring(7);
+            // We got the token now we need to validate that this token is a genuine token or not.
+            boolean isValid = authUtility.validateToken(token);
+            if(isValid == false){
+                // I am not going to set any kind of authentication and I will return from here itself
+                // before filtering if I am not setting any kind of authentication that
+                // means I am rejecting the request
+                filterChain.doFilter(request, response);
+            }else{
+                String payload = authUtility.decryptJwtToken(token);
+                UsernamePasswordAuthenticationToken authenticationToken =
+                        new UsernamePasswordAuthenticationToken(payload, null, Collections.emptyList());
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                filterChain.doFilter(request, response);
+
+            }
+        }else{
+            filterChain.doFilter(request, response);
+        }
+    }
+
+}
