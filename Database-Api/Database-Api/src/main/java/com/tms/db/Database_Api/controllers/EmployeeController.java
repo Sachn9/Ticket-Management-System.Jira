@@ -22,7 +22,16 @@ public class EmployeeController {
         this.employeeRepository=employeeRepository;
     }
 
-    @GetMapping("/{employeeId}")
+    //authUtility email verification
+    @GetMapping("/email/{emailId}")
+    public  ResponseEntity getEmployeeById(@PathVariable String emailId){
+        Employee employee=employeeRepository.findByEmployeeEmail(emailId);
+        return new ResponseEntity<>(employee,HttpStatus.OK);
+
+    }
+
+
+    @GetMapping("/id/{employeeId}")
     public ResponseEntity getEmployeeById(@PathVariable UUID employeeId){
 
         //As we don't have Writes any logic we can  Directly call the repository layer

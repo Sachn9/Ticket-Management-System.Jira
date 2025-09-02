@@ -23,7 +23,7 @@ public class Comment {
 
     private String commentTxt;
 
-    @OneToMany
+   // @OneToMany
     private List<String> mediaLink;
 
     private LocalDateTime createdAt;
