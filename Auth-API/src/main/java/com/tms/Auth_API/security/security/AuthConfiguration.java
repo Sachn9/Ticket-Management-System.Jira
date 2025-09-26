@@ -24,7 +24,7 @@ public class AuthConfiguration {
                 .authorizeHttpRequests(
                         auth -> auth.requestMatchers(
                                         "/api/v1/auth/token",
-                                        "/api/v1/auth/validate"
+                                        "/api/v1/auth/validate/**"
                                 ).permitAll()
                                 .anyRequest().authenticated()
                 )

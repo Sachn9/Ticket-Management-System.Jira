@@ -1,6 +1,7 @@
 package com.tms.company_api.controllers;
 
 import com.tms.company_api.dto.CompanyDetails;
+import com.tms.company_api.models.Company;
 import com.tms.company_api.services.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,8 +25,8 @@ public class CompanyController {
      */
 
     @PostMapping("/register")
-    public void registerCompany(@RequestBody CompanyDetails companyDetails){
+    public Company registerCompany(@RequestBody CompanyDetails companyDetails){
 
-        companyService.registerCompany(companyDetails);
+        return companyService.registerCompany(companyDetails);
     }
 }

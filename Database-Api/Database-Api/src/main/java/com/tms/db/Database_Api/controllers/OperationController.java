@@ -1,5 +1,6 @@
 package com.tms.db.Database_Api.controllers;
 
+import com.tms.db.Database_Api.dto.OperationResponse;
 import com.tms.db.Database_Api.models.Operation;
 import com.tms.db.Database_Api.repository.OperationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -18,6 +20,15 @@ public class OperationController {
     @Autowired
     public OperationController(OperationRepository operationRepository) {
         this.operationRepository = operationRepository;
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<OperationResponse> getAll(){
+        List<Operation> operations=operationRepository.findAll();
+        OperationResponse operationResponse=new OperationResponse();
+        operationResponse.setOperations(operations);
+        return new ResponseEntity<>(operationResponse,HttpStatus.OK);
+
     }
 
     @GetMapping("/{id}")
@@ -43,4 +54,5 @@ public class OperationController {
         operationRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

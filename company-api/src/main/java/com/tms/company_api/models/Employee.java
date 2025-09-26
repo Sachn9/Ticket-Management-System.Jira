@@ -1,18 +1,25 @@
 package com.tms.company_api.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Employee {
-    private Long employeeId;
+    private Long id;
 
     private Company company;  //it should be relation with the company model
 
     private String employeeName;
+
+    private Role role;
 
     private String employeeEmail;
 

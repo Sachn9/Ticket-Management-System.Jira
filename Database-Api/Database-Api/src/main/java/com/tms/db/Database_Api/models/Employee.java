@@ -17,6 +17,9 @@ public class Employee {
     @ManyToOne
     private Company company;  //it should be relation with the company model
 
+    @ManyToOne
+    private Role role;//Many employee having one role
+
     private String employeeName;
 
     @Column(unique = true, nullable = false)

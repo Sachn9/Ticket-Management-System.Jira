@@ -1,10 +1,15 @@
 package com.tms.Auth_API.security.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.management.relation.Role;
 import java.time.LocalDateTime;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Employee {
 
     private Long employeeId;
@@ -16,6 +21,8 @@ public class Employee {
     private String employeeEmail;
 
     private String phoneNumber;
+
+    private Role role;
 
     private String password;
 

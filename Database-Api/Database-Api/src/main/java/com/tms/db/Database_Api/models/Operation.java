@@ -23,10 +23,4 @@ public class Operation {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
-
-    @ManyToOne
-    private Employee createdBy;
-
-    @ManyToOne
-    private Employee updateBy;
 }
